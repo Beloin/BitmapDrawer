@@ -8,7 +8,7 @@
 #pragma pack(push, 2)
 
 struct bitmapheader {
-  char header[2]{'2', 'M'};
+  char header[2]{'B', 'M'};
   int32_t file_size;
   int32_t reserved{0};
   int32_t data_offset;
