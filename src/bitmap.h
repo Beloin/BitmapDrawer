@@ -37,6 +37,8 @@ struct pixel {
 }; // Microsoft by default uses BGR -- Unfortunately
 
 class Bitmap {
+    friend class BitmapWriter;
+
 private:
   int width{800};
   int height{600};
@@ -44,6 +46,7 @@ private:
 
 public:
   Bitmap() : pixels(width * height) {}
+  Bitmap(int width, int height) : pixels(width * height), height(height), width(width) {}
   void SetPixel(int x, int y, pixel p);
   void SetRow(int row, pixel p);
   void SetAll(pixel p);
