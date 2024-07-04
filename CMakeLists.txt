@@ -9,5 +9,8 @@ add_executable(bitmap
 
 add_library(src_lib src/bitmap.h src/bitmap.cpp src/BitmapWriter.h src/BitmapWriter.cpp)
 
-target_include_directories(bitmap PUBLIC ./src)
-target_link_libraries(bitmap src_lib)
+add_subdirectory(./ui)
+
+target_include_directories(bitmap PUBLIC ./src ./ui)
+
+target_link_libraries(bitmap src_lib ui_lib)
