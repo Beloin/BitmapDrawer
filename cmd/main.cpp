@@ -19,7 +19,7 @@ void handle_signal(int signal) {
 int main(int argc, char *argv[]) {
     MainApp mainApp;
     mainApp.initializeUI();
-    mainApp.createGrid(200, 50);
+    mainApp.createGrid(100, 30);
 
     wait_sigint(handle_signal);
     if (status != 0)

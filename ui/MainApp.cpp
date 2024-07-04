@@ -41,22 +41,28 @@ void MainApp::closeUI() {
 }
 
 void printAllGridWhite(int width, int height) {
-    wattron(gridw, COLOR_PAIR(black_pair));
+    wattron(gridw, COLOR_PAIR(white_pair));
     for (int i = 1; i <= width; ++i) {
         for (int j = 1; j <= height; ++j) {
             wmove(gridw, j, i);
             waddch(gridw, ' ');
         }
     }
-    wattroff(gridw, COLOR_PAIR(black_pair));
+    wattroff(gridw, COLOR_PAIR(white_pair));
     wrefresh(gridw);
     wrefresh(mainw);
 }
 
 void MainApp::createGrid(int width, int height) {
-    gridw = newwin(height+2, width+2, 1, 1);
+    this->width = width;
+    this->height = height;
+    gridw = newwin(height + 2, width + 2, 1, 1);
     box(gridw, 0, 0);
     printAllGridWhite(width, height);
+}
+
+void MainApp::changePos(int x, int y) {
+    mvwin(gridw, y, x);
 }
 
 bool initializeCurses() {
@@ -73,6 +79,6 @@ bool initializeCurses() {
 }
 
 void initializeColors() {
-    init_pair(black_pair, COLOR_BLACK, COLOR_WHITE);
-    init_pair(white_pair, COLOR_WHITE, COLOR_BLACK);
+    init_pair(white_pair, COLOR_BLACK, COLOR_WHITE);
+    init_pair(black_pair, COLOR_WHITE, COLOR_BLACK);
 }

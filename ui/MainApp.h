@@ -10,13 +10,18 @@ enum Status {
     INACTIVE
 };
 
+
 class MainApp {
 private:
     Status status;
+    int width, height;
 public:
     void initializeUI();
     void closeUI();
     void createGrid(int width, int height);
+
+    void start();
+    void changePos(int x, int y);
 };
 
 
