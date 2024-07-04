@@ -50,6 +50,9 @@ public:
   void SetPixel(int x, int y, pixel p);
   void SetRow(int row, pixel p);
   void SetAll(pixel p);
+
+  [[nodiscard]] int getWidth() const {return width;}
+  [[nodiscard]] int getHeight() const {return height;}
 };
 
 

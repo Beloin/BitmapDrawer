@@ -1,32 +1,19 @@
-#include <iostream>
+//
+// Created by beloin on 03/07/24.
+//
 
 #include "bitmap.h"
 #include "BitmapWriter.h"
 
+
 #define CPP_HEIGHT 600
 #define CPP_WIDTH 100
-
 
 void MakeAnPlus(Bitmap &cppBmp, int middleW, int middleH);
 void CreateCppSymbol();
 
-int main(int argc, char *argv[]) {
-    std::cout << "Hello World" << std::endl;
-    Bitmap bmp{};
-
-    bmp.SetAll({255, 255, 255});
-
-    // Default row
-    for (int i = 0; i < 600; i += 2) {
-        bmp.SetRow(i, pixel{127, 127, 127});
-    }
-
-    BitmapWriter writer = bmp; // Implicit conversion, sweet but dangerous
-    writer.Write("../gray_scale.BMP");
-
+int main() {
     CreateCppSymbol();
-
-    return 0;
 }
 
 void CreateCppSymbol() {
