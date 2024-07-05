@@ -126,7 +126,7 @@ void MainApp::setPixel(Color color) const {
     wattroff(gridw, COLOR_PAIR(attr));
 
     if (onSet_ != nullptr)
-        onSet_(color, gridY, gridX);
+        onSet_(color, gridX, gridY);
 }
 
 void MainApp::setSaveCallback(onSave cb) {
