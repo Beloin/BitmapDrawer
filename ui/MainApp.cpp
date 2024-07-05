@@ -5,6 +5,7 @@
 #include <ncurses.h>
 #include <cstdlib>
 #include "MainApp.h"
+#include "command.h"
 
 // TODO: Make a way to have only one instance of MainApp
 WINDOW *mainw;
@@ -53,16 +54,91 @@ void printAllGridWhite(int width, int height) {
     wrefresh(mainw);
 }
 
-void MainApp::createGrid(int width, int height) {
-    this->width = width;
-    this->height = height;
-    gridw = newwin(height + 2, width + 2, 1, 1);
+void MainApp::createGrid(int width_, int height_) {
+    this->width = width_;
+    this->height = height_;
+    gridw = newwin(height_ + 2, width_ + 2, 1, 1);
     box(gridw, 0, 0);
-    printAllGridWhite(width, height);
+    printAllGridWhite(width_, height_);
 }
 
 void MainApp::changePos(int x, int y) {
-    mvwin(gridw, y, x);
+    gridX = x;
+    gridY = y;
+    wmove(gridw, y + 1, x + 1);
+    wrefresh(gridw);
+
+    if (onPosChange_ != nullptr)
+        onPosChange_(gridX, gridY);
+}
+
+[[noreturn]] void MainApp::loop() {
+    while (true) {
+        Command command = getCommand();
+
+        switch (command) {
+            case ENTER:
+                setPixel(currentColor);
+                break;
+            case SPACE:
+                if (onSave_ != nullptr)
+                    onSave_();
+                break;
+            case UP:
+                if (gridY > 0) {
+                    changePos(gridX, --gridY);
+                }
+                break;
+            case DOWN:
+                if (gridY < height - 1) {
+                    changePos(gridX, ++gridY);
+                }
+                break;
+            case RIGHT:
+                if (gridX < width - 1) {
+                    changePos(++gridX, gridY);
+                }
+                break;
+            case LEFT:
+                if (gridX > 0) {
+                    changePos(--gridX, gridY);
+                }
+                break;
+            case NONE:
+                break;
+        }
+    }
+}
+
+void MainApp::setPixel(Color color) const {
+    wmove(gridw, gridY + 1, gridX + 1);
+    short attr;
+    switch (color) {
+        case BLACK:
+            attr = black_pair;
+            break;
+        case WHITE:
+            attr = white_pair;
+            break;
+    }
+    wattron(gridw, COLOR_PAIR(attr));
+    waddch(gridw, ' ');
+    wattroff(gridw, COLOR_PAIR(attr));
+
+    if (onSet_ != nullptr)
+        onSet_(color, gridY, gridX);
+}
+
+void MainApp::setSaveCallback(onSave cb) {
+    this->onSave_ = cb;
+}
+
+void MainApp::setPosChangeCallback(onPosChange cb) {
+    this->onPosChange_ = cb;
+}
+
+void MainApp::setOnSetCallback(onSet cb) {
+    this->onSet_ = cb;
 }
 
 bool initializeCurses() {

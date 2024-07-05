@@ -1,5 +1,6 @@
 #include <iostream>
 #include <csignal>
+#include <thread>
 
 #include "../examples/cpp_symbol.h"
 #include "MainApp.h"
@@ -15,16 +16,46 @@ void handle_signal(int signal) {
     status = signal;
 }
 
+void uiThread(MainApp *mainApp) {
+    mainApp->loop();
+}
+
+Bitmap *globBitmap;
+
+void onSetCb(Color color, int x, int y) {
+    globBitmap->SetPixel(x, y, {255, 255, 255});
+}
+
+void onPosCb(int x, int y) {
+
+}
+
+void onSaveCb() {
+    BitmapWriter writer = *globBitmap;
+    writer.Write("../test.bmp");
+}
+
 
 int main(int argc, char *argv[]) {
     MainApp mainApp;
     mainApp.initializeUI();
     mainApp.createGrid(100, 30);
+    mainApp.changePos(0, 0);
+
+    mainApp.setOnSetCallback(onSetCb);
+    mainApp.setPosChangeCallback(onPosCb);
+    mainApp.setSaveCallback(onSaveCb);
+
+    globBitmap = new Bitmap{100, 30};
+    globBitmap->SetAll({0, 0, 0});
+
+    std::thread ui{uiThread, &mainApp};
 
     wait_sigint(handle_signal);
     if (status != 0)
         return 128 + status;
 
+    delete globBitmap;
     mainApp.closeUI();
     return 0;
 }
