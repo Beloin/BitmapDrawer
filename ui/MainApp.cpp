@@ -41,15 +41,15 @@ void MainApp::closeUI() {
     status = Status::INACTIVE;
 }
 
-void printAllGridWhite(int width, int height) {
-    wattron(gridw, COLOR_PAIR(white_pair));
+void printAllGridBlack(int width, int height) {
+    wattron(gridw, COLOR_PAIR(black_pair));
     for (int i = 1; i <= width; ++i) {
         for (int j = 1; j <= height; ++j) {
             wmove(gridw, j, i);
             waddch(gridw, ' ');
         }
     }
-    wattroff(gridw, COLOR_PAIR(white_pair));
+    wattroff(gridw, COLOR_PAIR(black_pair));
     wrefresh(gridw);
     wrefresh(mainw);
 }
@@ -59,7 +59,7 @@ void MainApp::createGrid(int width_, int height_) {
     this->height = height_;
     gridw = newwin(height_ + 2, width_ + 2, 1, 1);
     box(gridw, 0, 0);
-    printAllGridWhite(width_, height_);
+    printAllGridBlack(width_, height_);
 }
 
 void MainApp::changePos(int x, int y) {
@@ -120,6 +120,8 @@ void MainApp::setPixel(Color color) const {
         case WHITE:
             attr = white_pair;
             break;
+        default:
+            attr = black_pair;
     }
     wattron(gridw, COLOR_PAIR(attr));
     waddch(gridw, ' ');

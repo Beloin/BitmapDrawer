@@ -23,7 +23,8 @@ void uiThread(MainApp *mainApp) {
 Bitmap *globBitmap;
 
 void onSetCb(Color color, int x, int y) {
-    globBitmap->SetPixel(x, y, {255, 255, 255});
+    auto p = colorToPixel(color);
+    globBitmap->SetPixel(x, y, p);
 }
 
 void onPosCb(int x, int y) {

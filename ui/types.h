@@ -5,6 +5,8 @@
 #ifndef BITMAP_TYPES_H
 #define BITMAP_TYPES_H
 
+#include "../src/bitmap.h"
+
 enum Status {
     ACTIVE,
     INACTIVE
@@ -12,7 +14,11 @@ enum Status {
 
 enum Color {
     WHITE,
-    BLACK
+    BLACK,
+    RED,
+    BLUE,
+    GREEN,
+    YELLOW
 };
 
 enum Command {
@@ -22,8 +28,12 @@ enum Command {
 };
 
 typedef void (*onSet)(Color color, int x, int y);
+
 typedef void (*onPosChange)(int x, int y);
+
 typedef void (*onSave)();
+
+pixel colorToPixel(Color color);
 
 
 #endif //BITMAP_TYPES_H

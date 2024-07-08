@@ -15,7 +15,7 @@ private:
     int gridX{0};
     int gridY{0};
 
-    Color currentColor{BLACK};
+    Color currentColor{WHITE};
 
     onSet onSet_{nullptr};
     onPosChange onPosChange_{nullptr};
