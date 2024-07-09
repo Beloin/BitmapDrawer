@@ -5,10 +5,12 @@
 #include "debug_print.h"
 #include <cstdarg>
 
+static std::ofstream debugOut;
+
 int extractFormatCount(const std::string &_format);
 
 bool Debug::start() {
-    debugOut.open(DEBUG_FILE, std::ios_base::out | std::ios_base::app);
+    debugOut.open(DEBUG_FILE);
     return debugOut.is_open();
 }
 
@@ -19,20 +21,26 @@ void Debug::dprint(const std::string &_format, ...) {
     va_start(ptr, _format);
     vsprintf(res, _format.c_str(), ptr);
 
+    debugOut << res;
+    debugOut.flush();
     va_end(ptr);
 }
 
 int extractFormatCount(const std::string &_format) {
-    int count;
+    int count{0};
     size_t inIndex = 0;
-    size_t fiIndex = _format.size() - 1;
-    while (inIndex != fiIndex) {
+    unsigned long size = _format.size();
+    size_t fiIndex = size - 1;
+    unsigned long mid = size / 2; // a%c, ab%dc
+    while (inIndex <= mid) {
         if (_format[inIndex] == '%') {
-            if (inIndex!= )
+            if (inIndex <= mid && _format[inIndex + 1] != '%') { count++; }
         }
 
-        if (_format[fiIndex] == '%') {
-
+        if (fiIndex > mid && _format[fiIndex] == '%') {
+            if (fiIndex < size - 1 && _format[fiIndex + 1] != '%') {
+                count++;
+            }
         }
 
         inIndex++;
@@ -40,4 +48,8 @@ int extractFormatCount(const std::string &_format) {
     }
 
     return count;
+}
+
+void Debug::stop() {
+    debugOut.close();
 }

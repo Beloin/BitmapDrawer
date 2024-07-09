@@ -9,9 +9,6 @@
 
 #define DEBUG_FILE "../dbg.log"
 
-std::ofstream debugOut;
-
-
 namespace Debug {
 
     bool start();

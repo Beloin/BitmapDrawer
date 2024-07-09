@@ -4,6 +4,7 @@
 
 #include "../examples/cpp_symbol.h"
 #include "MainApp.h"
+#include "debug/debug_print.h"
 
 typedef void (*sig_handler)(int signal);
 
@@ -23,6 +24,7 @@ void uiThread(MainApp *mainApp) {
 Bitmap *globBitmap;
 
 void onSetCb(Color color, int x, int y) {
+    Debug::dprint("Received x:%d and y:%d\n", x, y);
     auto p = colorToPixel(color);
     globBitmap->SetPixel(x, y, p);
 }
@@ -38,6 +40,7 @@ void onSaveCb() {
 
 
 int main(int argc, char *argv[]) {
+    Debug::start();
     MainApp mainApp;
     mainApp.initializeUI();
     mainApp.createGrid(100, 30);
@@ -58,6 +61,7 @@ int main(int argc, char *argv[]) {
 
     delete globBitmap;
     mainApp.closeUI();
+    Debug::stop();
     return 0;
 }
 
