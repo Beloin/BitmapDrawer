@@ -36,6 +36,9 @@ Command getCommand() {
             return UP;
         case 'l':
             return RIGHT;
+        case 'S':
+        case 's':
+            return SAVE;
         default:
             return NONE;
     }

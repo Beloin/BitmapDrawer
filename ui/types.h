@@ -24,6 +24,7 @@ enum Color {
 enum Command {
     ENTER, SPACE,
     UP, DOWN, RIGHT, LEFT,
+    SAVE,
     NONE
 };
 

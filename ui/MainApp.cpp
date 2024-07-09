@@ -10,6 +10,7 @@
 // TODO: Make a way to have only one instance of MainApp
 WINDOW *mainw;
 WINDOW *gridw;
+WINDOW *colorPicker; // TODO: Create color picker
 
 int termx, termy;
 short black_pair = 1;
@@ -60,6 +61,10 @@ void MainApp::createGrid(int width_, int height_) {
     gridw = newwin(height_ + 2, width_ + 2, 1, 1);
     box(gridw, 0, 0);
     printAllGridBlack(width_, height_);
+
+    wmove(mainw, height_+3, 1);
+    attron(A_STANDOUT);
+    wprintw(mainw, "<S> to Save; vim <keys> to move; <Enter> to toggle color");
 }
 
 void MainApp::changePos(int x, int y) {
@@ -103,6 +108,10 @@ void MainApp::changePos(int x, int y) {
                 if (gridX > 0) {
                     changePos(--gridX, gridY);
                 }
+                break;
+            case SAVE:
+                if (onSave_ != nullptr)
+                    onSave_();
                 break;
             case NONE:
                 break;

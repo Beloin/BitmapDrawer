@@ -24,9 +24,10 @@ void uiThread(MainApp *mainApp) {
 Bitmap *globBitmap;
 
 void onSetCb(Color color, int x, int y) {
-    Debug::dprint("Received x:%d and y:%d\n", x, y);
+    int newY = globBitmap->getHeight() - 1 - y;
+    Debug::dprint("Received x:%d and y:%d. Converted to x:%d and y:%d\n", x, y, x, newY);
     auto p = colorToPixel(color);
-    globBitmap->SetPixel(x, y, p);
+    globBitmap->SetPixel(x, newY, p);
 }
 
 void onPosCb(int x, int y) {
@@ -35,7 +36,9 @@ void onPosCb(int x, int y) {
 
 void onSaveCb() {
     BitmapWriter writer = *globBitmap;
-    writer.Write("../test.bmp");
+    const char *fileTest = "../test.bmp";
+    writer.Write(fileTest);
+    Debug::dprint("Saving to %s\n", fileTest);
 }
 
 
