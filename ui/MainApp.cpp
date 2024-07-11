@@ -71,7 +71,7 @@ void MainApp::createGrid(int width_, int height_) {
 
     wmove(mainw, height_ + 3, 1);
     attron(A_STANDOUT);
-    wprintw(mainw, "<S> to Save; vim <keys> to move; <Enter> to toggle color");
+    wprintw(mainw, "<S> to Save; vim <keys> to move; <Enter> to toggle color; <C> to Change Color;");
 }
 
 void MainApp::changeGridPos(int x, int y) {
