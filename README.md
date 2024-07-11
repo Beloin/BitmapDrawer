@@ -7,11 +7,11 @@ file using direct cast to `*char`.
 
 Example:
 <div style="place-items: center; height: 100%;  width: 100%;">
-<img style="max-width: 100%; max-height: 100%;" src="draw_example.png" alt="Created bitmap">
+<img src="draw_example.png" alt="Created bitmap">
 </div>
 
 Converts to
-<div style="height: 200px; width: 50%">
-<img style="max-width: 100%; max-height: 100%;" src="draw_example.bmp" alt="Saved Bitmap">
+<div style="height: 200px; width: auto">
+<img style="height: 100%; width: 100%; object-fit: contain" src="draw_example.bmp" alt="Saved Bitmap">
 </div>
 
