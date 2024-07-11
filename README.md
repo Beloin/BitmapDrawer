@@ -7,8 +7,7 @@ file using direct cast to `*char`.
 
 Example:
 
-<div style="place-items: center;">
-
+<div style="place-items: center; height: 100%;  width: 100%;">
 <img style="max-width: 100%; max-height: 100%;" src="draw_example.png" alt="Created bitmap">
 <img style="max-width: 100%; max-height: 100%;" src="draw_example.bmp" alt="Saved Bitmap">
 </div>
