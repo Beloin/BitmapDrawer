@@ -39,6 +39,9 @@ Command getCommand() {
         case 'S':
         case 's':
             return SAVE;
+        case 'c':
+        case 'C':
+            return CHANGE_CARET;
         default:
             return NONE;
     }

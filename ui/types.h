@@ -6,6 +6,7 @@
 #define BITMAP_TYPES_H
 
 #include "../src/bitmap.h"
+#include <string>
 
 enum Status {
     ACTIVE,
@@ -13,8 +14,8 @@ enum Status {
 };
 
 enum Color {
-    WHITE,
-    BLACK,
+    BLACK = 1,
+    WHITE = 2,
     RED,
     BLUE,
     GREEN,
@@ -24,7 +25,7 @@ enum Color {
 enum Command {
     ENTER, SPACE,
     UP, DOWN, RIGHT, LEFT,
-    SAVE,
+    SAVE, CHANGE_CARET,
     NONE
 };
 
@@ -35,6 +36,8 @@ typedef void (*onPosChange)(int x, int y);
 typedef void (*onSave)();
 
 pixel colorToPixel(Color color);
+
+std::string colorToString(Color color);
 
 
 #endif //BITMAP_TYPES_H

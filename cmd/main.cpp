@@ -25,7 +25,7 @@ Bitmap *globBitmap;
 
 void onSetCb(Color color, int x, int y) {
     int newY = globBitmap->getHeight() - 1 - y;
-    Debug::dprint("Received x:%d and y:%d. Converted to x:%d and y:%d\n", x, y, x, newY);
+    Debug::dprint("Received x:%d and y:%d with color %s\n", x, y, colorToString(color).c_str());
     auto p = colorToPixel(color);
     globBitmap->SetPixel(x, newY, p);
 }
@@ -47,7 +47,8 @@ int main(int argc, char *argv[]) {
     MainApp mainApp;
     mainApp.initializeUI();
     mainApp.createGrid(100, 30);
-    mainApp.changePos(0, 0);
+    mainApp.createColorPicker();
+    mainApp.changeGridPos(0, 0);
 
     mainApp.setOnSetCallback(onSetCb);
     mainApp.setPosChangeCallback(onPosCb);

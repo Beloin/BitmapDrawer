@@ -18,5 +18,26 @@ pixel colorToPixel(Color color) {
             return {0, 255, 0};
         case YELLOW:
             return {0, 255, 255};
+        default:
+            return {255, 255, 255};
+    }
+}
+
+std::string colorToString(Color color) {
+    switch (color) {
+        case WHITE:
+            return "WHITE";
+        case BLACK:
+            return "BLACK";
+        case RED:
+            return "RED";
+        case BLUE:
+            return "BLUE";
+        case GREEN:
+            return "GREEN";
+        case YELLOW:
+            return "YELLOW";
+        default:
+            return "UNDEFINED";
     }
 }
