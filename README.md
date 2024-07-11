@@ -7,8 +7,9 @@ file using direct cast to `*char`.
 
 Example:
 
-<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; column-gap: 20px; place-items: center;">
-<img src="draw_example.png" alt="Created bitmap">
-<img src="draw_example.bmp" alt="Saved Bitmap">
+<div style="place-items: center;">
+
+<img style="max-width: 100%; max-height: 100%;" src="draw_example.png" alt="Created bitmap">
+<img style="max-width: 100%; max-height: 100%;" src="draw_example.bmp" alt="Saved Bitmap">
 </div>
 
